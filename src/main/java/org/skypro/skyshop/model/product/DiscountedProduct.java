@@ -3,14 +3,15 @@ package org.skypro.skyshop.model.product;
 import org.skypro.skyshop.model.search.Searchable;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class DiscountedProduct extends Product {
 
     private final int price;
     private final int discount;
 
-    public DiscountedProduct(String name, int price, int discount) {
-        super(name);
+    public DiscountedProduct(UUID id, String name, int price, int discount) {
+        super(id, name);
 
         if (price < 1) {
             throw new IllegalArgumentException("Field 'price' must be equal 1 or more");
