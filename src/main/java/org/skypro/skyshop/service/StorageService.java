@@ -6,16 +6,13 @@ import org.skypro.skyshop.model.product.FixPriceProduct;
 import org.skypro.skyshop.model.product.Product;
 import org.skypro.skyshop.model.product.SimpleProduct;
 import org.skypro.skyshop.model.search.Searchable;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Service
+@Repository
 public class StorageService {
     private final Map<UUID, Product> productStorage = new HashMap<>();
     private final Map<UUID, Article> articleStorage = new HashMap<>();
@@ -35,6 +32,10 @@ public class StorageService {
 
     public Collection<Searchable> getAll() {
         return Stream.concat(getProducts().values().stream(), getArticles().values().stream()).collect(Collectors.toSet());
+    }
+
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(this.productStorage.get(id));
     }
 
     private void fillTestProducts() {
