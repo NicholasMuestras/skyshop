@@ -6,16 +6,16 @@ import org.skypro.skyshop.model.product.FixPriceProduct;
 import org.skypro.skyshop.model.product.Product;
 import org.skypro.skyshop.model.product.SimpleProduct;
 import org.skypro.skyshop.model.search.Searchable;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Repository
+@Service
 public class StorageService {
-    private final Map<UUID, Product> productStorage = new HashMap<>();
-    private final Map<UUID, Article> articleStorage = new HashMap<>();
+    private final Map<UUID, Product> products = new HashMap<>();
+    private final Map<UUID, Article> articles = new HashMap<>();
 
     public StorageService() {
         fillTestProducts();
@@ -23,11 +23,11 @@ public class StorageService {
     }
 
     public Map<UUID, Product> getProducts() {
-        return productStorage;
+        return products;
     }
 
     public Map<UUID, Article> getArticles() {
-        return articleStorage;
+        return articles;
     }
 
     public Collection<Searchable> getAll() {
@@ -35,7 +35,7 @@ public class StorageService {
     }
 
     public Optional<Product> getProductById(UUID id) {
-        return Optional.ofNullable(this.productStorage.get(id));
+        return Optional.ofNullable(this.products.get(id));
     }
 
     private void fillTestProducts() {
@@ -44,19 +44,19 @@ public class StorageService {
 
         id = UUID.randomUUID();
         testProduct = new SimpleProduct(id, "Product A", 2);
-        productStorage.put(id, testProduct);
+        products.put(id, testProduct);
 
         id = UUID.randomUUID();
         testProduct = new SimpleProduct(id, "Lamp", 10);
-        productStorage.put(id, testProduct);
+        products.put(id, testProduct);
 
         id = UUID.randomUUID();
         testProduct = new FixPriceProduct(id, "Special Product BBB");
-        productStorage.put(id, testProduct);
+        products.put(id, testProduct);
 
         id = UUID.randomUUID();
         testProduct = new DiscountedProduct(id, "Special Product AA", 100, 10);
-        productStorage.put(id, testProduct);
+        products.put(id, testProduct);
     }
 
 
@@ -66,18 +66,18 @@ public class StorageService {
 
         id = UUID.randomUUID();
         testArticle = new Article(id, "Article about Product Tree", "So many symbols about trees.");
-        articleStorage.put(id, testArticle);
+        articles.put(id, testArticle);
 
         id = UUID.randomUUID();
         testArticle = new Article(id, "Best Product", "So many symbols about the Best Product.");
-        articleStorage.put(id, testArticle);
+        articles.put(id, testArticle);
 
         id = UUID.randomUUID();
         testArticle = new Article(id, "Article with same length title about a Product Banana", "some content");
-        articleStorage.put(id, testArticle);
+        articles.put(id, testArticle);
 
         id = UUID.randomUUID();
         testArticle = new Article(id, "Article with same length title about a Product Apple_", "some content");
-        articleStorage.put(id, testArticle);
+        articles.put(id, testArticle);
     }
 }
