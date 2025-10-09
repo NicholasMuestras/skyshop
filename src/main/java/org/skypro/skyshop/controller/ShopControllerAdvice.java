@@ -14,6 +14,6 @@ public class ShopControllerAdvice {
     public ResponseEntity<ShopError> NoSuchProductHandler
             (NoSuchProductException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ShopError("NOT_FOUND_PRODUCT", "Продукт не найден"));
+                .body(new ShopError("NOT_FOUND_PRODUCT", e.getMessage()));
     }
 }
