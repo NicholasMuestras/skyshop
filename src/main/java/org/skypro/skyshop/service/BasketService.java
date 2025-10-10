@@ -1,5 +1,6 @@
 package org.skypro.skyshop.service;
 
+import org.skypro.skyshop.exception.NoSuchProductException;
 import org.skypro.skyshop.model.basket.ProductBasket;
 import org.skypro.skyshop.model.product.Product;
 import org.skypro.skyshop.view.basket.BasketItem;
@@ -21,7 +22,7 @@ public class BasketService {
 
     public void addProduct(UUID id) {
         if (this.storage.getProductById(id).isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new NoSuchProductException("Unable to basket.add a Product which not exist in a Storage. ProductId: " + id);
         }
 
         this.basket.addProduct(id);
@@ -36,9 +37,7 @@ public class BasketService {
                             Optional<Product> product = this.storage.getProductById(item.getKey());
 
                             if (product.isEmpty()) {
-                                throw new RuntimeException(
-                                        "Basket has a Product which not exist in a Storage. ProductId: " + item.getKey()
-                                );
+                                throw new NoSuchProductException("Basket has a Product which not exist in a Storage. ProductId: " + item.getKey());
                             }
 
                             return new BasketItem(product.get(), item.getValue());
